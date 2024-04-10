@@ -64,7 +64,7 @@ const Register = () => {
       >
         <Box>
           <Text size="3xl" fontWeight="bold" color="white" textAlign="center">
-            Register Commit
+            Register Commi
           </Text>
 
           <FormControl
