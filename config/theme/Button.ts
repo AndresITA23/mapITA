@@ -1,9 +1,7 @@
 import { createStyle } from '@gluestack-style/react';
 
 export const Button = createStyle({
-  'borderRadius': '$sm',
-  'backgroundColor': '$primary500',
-  'flexDirection': 'row',
+  'borderRadius': '$xl',
   'justifyContent': 'center',
   'alignItems': 'center',
 
@@ -36,7 +34,7 @@ export const Button = createStyle({
   'variants': {
     action: {
       primary: {
-        'bg': '$primary500',
+        'bg': '$transparent',
         'borderColor': '$primary300',
 
         ':hover': {
@@ -45,8 +43,7 @@ export const Button = createStyle({
         },
 
         ':active': {
-          bg: '$primary700',
-          borderColor: '$primary700',
+          bg: '#EFEFEF',
         },
 
         '_text': {

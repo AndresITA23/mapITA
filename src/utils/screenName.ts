@@ -1,6 +1,8 @@
 const exploreStack = {
     tab: "ExploreTab",
     explore: "Explore",
+    
+    addPlace: "AddPlaceScreen",
 }
 const favoritesStack = {
     tab: "FavoritesTab",

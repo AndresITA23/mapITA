@@ -11,7 +11,9 @@ const SettingsStack = () => {
             <Stack.Screen 
             name={screen.settings.settings} 
             component={Settings} 
-            options={{ title: "Settings" }}
+            options={{ title: "Settings", 
+            headerShown: false,
+            }}
             ></Stack.Screen>
         </Stack.Navigator>
     )

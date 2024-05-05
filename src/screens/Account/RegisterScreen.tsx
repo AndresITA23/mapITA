@@ -32,11 +32,16 @@ const Register = () => {
       try {
         const auth = getAuth();
         
-        await createUserWithEmailAndPassword(
+        const infoUser = await createUserWithEmailAndPassword(
           auth, 
           formValue.email, 
           formValue.password
-          );
+          ).then((userFirebase) => {
+            return userFirebase;
+          });
+
+          console.log(infoUser);
+
           navigation.navigate(screen.account.login);
       } catch (error) {
         Toast.show({
