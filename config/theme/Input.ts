@@ -1,22 +1,13 @@
 import { createStyle } from '@gluestack-style/react';
 
 export const Input = createStyle({
-  'borderWidth': 1,
-  'borderColor': '$backgroundLight300',
+  'borderWidth': 2,
+  'borderColor': '#D9D9D9',
   'borderRadius': '$sm',
-  'flexDirection': 'row',
   'overflow': 'hidden',
-  'alignContent': 'center',
 
   ':hover': {
     borderColor: '$borderLight400',
-  },
-
-  ':focus': {
-    'borderColor': '$primary700',
-    ':hover': {
-      borderColor: '$primary700',
-    },
   },
 
   ':disabled': {
@@ -27,8 +18,8 @@ export const Input = createStyle({
   },
 
   '_input': {
-    py: 'auto',
-    px: '$3',
+    py: 6,
+    px: 6,
     overflow: 'hidden',
   },
 
@@ -198,7 +189,7 @@ export const Input = createStyle({
           },
         },
         ':focus': {
-          borderColor: '$primary700',
+          borderColor: '#BFA27E',
           _web: {
             boxShadow: 'inset 0 0 0 1px $primary700',
           },
@@ -275,9 +266,9 @@ export const Input = createStyle({
           },
         },
         ':focus': {
-          borderColor: '$primary700',
+          borderColor: '#BFA27E',
           _web: {
-            boxShadow: 'inset 0 0 0 1px $primary700',
+            boxShadow: 'inset 0 0 0 1px #BFA27E',
           },
         },
         ':invalid': {

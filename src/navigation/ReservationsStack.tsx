@@ -11,7 +11,7 @@ const ReservationsStack = () => {
             <Stack.Screen 
             name={screen.reservations.reservations} 
             component={Reservations} 
-            options={{ title: "Reservations" }}
+            options={{ title: "Reservations", headerShown:false }}
             ></Stack.Screen>
         </Stack.Navigator>
     )

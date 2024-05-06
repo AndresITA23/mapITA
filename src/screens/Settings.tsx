@@ -105,7 +105,7 @@ const Settings = () => {
             <Heading w={"$72"} marginTop={"$4"}>Configuration</Heading>
 
             <Box position="relative" alignItems="center" justifyContent="center" marginTop={"$1"} width={"100%"}>
-                <Button w={"$72"} flexDirection="row" alignItems="center" px={"$0"} p={10}>
+                <Button w={"$72"} flexDirection="row" alignItems="center" px={"$0"} p={10} bgColor="white" $active-bgColor="#EEEEEE" borderRadius={5}>
                     <UserRound size={32} color={"#BFA27E"} />
                     <ButtonText fontSize={"$lg"} marginLeft={"$4"} fontWeight="$normal" color="black">Personal information</ButtonText>
                     <ButtonIcon alignItems="flex-end" ml={"$5"} size="xl" as={ChevronRightIcon} marginLeft={"auto"} color="black" />
@@ -113,7 +113,7 @@ const Settings = () => {
             </Box>
 
             <Box position="relative" alignItems="center" justifyContent="center" marginTop={"$1"} width={"100%"} px={"$0"}>
-                <Button w={"$72"} flexDirection="row" alignItems="center" justifyContent="space-between" px={"$0"}>
+                <Button w={"$72"} flexDirection="row" alignItems="center" px={"$0"} p={10} bgColor="white" $active-bgColor="#EEEEEE" borderRadius={5}>
                     <ShieldAlert size={32} color={"#BFA27E"} />
                     <ButtonText fontSize={"$lg"} marginLeft={"$4"} color="black" fontWeight="$normal">Privacity</ButtonText>
                     <ButtonIcon alignItems="flex-end" ml={"$5"} color="black" size="xl" as={ChevronRightIcon} marginLeft={"auto"} />
@@ -121,7 +121,7 @@ const Settings = () => {
             </Box>
 
             <Box position="relative" alignItems="center" justifyContent="center" marginTop={"$1"} marginBottom={"$2"} width={"100%"}>
-                <Button w={"$72"} flexDirection="row" alignItems="center" justifyContent="space-between" px={"$0"}>
+                <Button w={"$72"} flexDirection="row" alignItems="center" px={"$0"} p={10} bgColor="white" $active-bgColor="#EEEEEE" borderRadius={5}>
                     <CircleHelp size={32} color={"#BFA27E"} />                    
                     <ButtonText fontSize={"$lg"} marginLeft={"$4"} color="black" fontWeight="$normal">Help</ButtonText>
                     <ButtonIcon alignItems="flex-end" ml={"$5"} color="black" size="xl" as={ChevronRightIcon} marginLeft={"auto"} />
@@ -133,7 +133,7 @@ const Settings = () => {
             <Heading w={"$72"} marginTop={"$4"}>Preferences</Heading>
 
             <Box position="relative" alignItems="center" justifyContent="center" marginTop={"$1"} width={"100%"}>
-                <Button w={"$72"} flexDirection="row" alignItems="center" justifyContent="space-between" $active-bgColor="white" px={"$0"}>
+                <Button w={"$72"} flexDirection="row" alignItems="center" px={"$0"} p={10} bgColor="white" $active-bgColor="#EEEEEE" borderRadius={5}>
                     <Bell size={32} color={"#BFA27E"} />                    
                     <ButtonText fontSize={"$lg"} marginLeft={"$4"} color="black" fontWeight="$normal">Notification</ButtonText>
                     <Switch alignItems="flex-end" marginLeft={"auto"} size="md" isDisabled={false} />
@@ -141,7 +141,7 @@ const Settings = () => {
             </Box>
 
             <Box position="relative" alignItems="center" justifyContent="center" marginTop={"$1"} marginBottom={"$2"} width={"100%"}>
-                <Button w={"$72"} flexDirection="row" alignItems="center" justifyContent="space-between" px={"$0"} 
+                <Button w={"$72"} flexDirection="row" alignItems="center" px={"$0"} p={10} bgColor="white" $active-bgColor="#EEEEEE" borderRadius={5} 
                 onPress={logout}>
                     <LogOut size={32} color={"#BFA27E"} />
                     <ButtonText fontSize={"$lg"} marginLeft={"$4"} color="#BFA27E"> Logout</ButtonText>
