@@ -10,6 +10,8 @@ import { TouchableOpacity } from "react-native";
 import { EyeIcon, EyeOffIcon, Mail } from "lucide-react-native";
 import { screen } from "../../utils";
 import { useFonts } from "expo-font";
+import * as SplashScreen from 'expo-splash-screen';
+
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import { useFormik } from "formik";
@@ -56,6 +58,23 @@ const Login2 = () => {
     navigation.navigate(screen.account.register);
   };
 
+  const [fontsLoaded] = useFonts({
+    "Shalimar-Regular": require("../../../assets/fonts/Shalimar-Regular.ttf")
+  });
+
+  useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+    }
+    prepare();
+  }, []);
+
+  if (!fontsLoaded) {
+    return undefined;
+  } else {
+    SplashScreen.hideAsync();
+  }
+
   return (
     <VStack flex={1}>
       <ImageBackground
@@ -71,7 +90,7 @@ const Login2 = () => {
             <Text fontSize={64} style={{ fontFamily: "Shalimar-Regular" }} color="white">Cabapp</Text>
           </Box>
 
-          <Box mx={16} my={32}>
+          <Box mx={16} my={30}>
             {/* LoginText */}
             <Box>
               <Box my={16}>
@@ -83,7 +102,7 @@ const Login2 = () => {
               {/* Form/Email/Password */}
               <Box mt={32}>
                 {/* Form Email */}
-                <Box my={16} mt={10}>
+                <Box my={16} mt={0}>
                   <FormControl isInvalid={false} size={"md"} isDisabled={false} isRequired={true}>
                     <Input w="100%" h={50} borderRadius={30} $focus-borderColor="#BFA27E" paddingLeft={10} paddingRight={36} bgColor="rgba(0,0,0,0.4)" borderWidth={2}>
                       <InputField
@@ -99,7 +118,7 @@ const Login2 = () => {
                     </Box>
 
                     <FormControlHelper>
-                      <FormControlHelperText color="red" mt={6} mb={10}>
+                      <FormControlHelperText color="red">
                         {formik.errors.email}
                       </FormControlHelperText>
                     </FormControlHelper>
@@ -107,7 +126,7 @@ const Login2 = () => {
                 </Box>
 
                 {/* From Password */}
-                <Box mt={-16}>
+                <Box my={16} mt={-10}>
                   <FormControl size={"md"} isDisabled={false} isRequired={true}>
                     <Input w="100%" h={50} borderRadius={30} $focus-borderColor="#BFA27E" paddingHorizontal={10} bg="rgba(0,0,0,0.4)" borderWidth="$2">
                       <InputField
@@ -120,7 +139,7 @@ const Login2 = () => {
                       <InputSlot pr="$3" onPress={handleState}>
                         <InputIcon
                           as={showPassword ? EyeIcon : EyeOffIcon}
-                          color="$darkBlue500"
+                          color="white"
                         />
                       </InputSlot>
                     </Input>
@@ -129,7 +148,7 @@ const Login2 = () => {
                     </Box> */}
 
                     <FormControlHelper>
-                      <FormControlHelperText color="red" mt={6} mb={10}>
+                      <FormControlHelperText color="red" >
                         {formik.errors.password}
                       </FormControlHelperText>
                     </FormControlHelper>
@@ -138,13 +157,12 @@ const Login2 = () => {
               </Box>
 
               {/* ButtonLink/ForgotPassword */}
-              <Box my={16} mt={-16}>
-                <Button position="absolute" right={0} variant={"link"}>
+              <Box my={16} mt={-24}>
+                <Button position="absolute" right={0} variant={"link"} alignItems="center">
                   <ButtonText
                     color='white'
                     fontSize={14}
-                    fontWeight="$medium"
-                    marginTop={"$3"}>
+                    fontWeight="$medium">
                     Forgot password?
                   </ButtonText>
                 </Button>

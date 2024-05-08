@@ -13,6 +13,10 @@ const Explore = () => {
     navigation.navigate(screen.explore.addPlace);
   };
 
+  const handlePublication = () => {
+    navigation.navigate(screen.explore.publicationExp);
+  }
+
   const scrollY = useRef(new Animated.Value(0)).current;
   const headerTranslateY = Animated.diffClamp(scrollY, 0, 144).interpolate({
     inputRange: [0, 100],
@@ -69,8 +73,8 @@ const Explore = () => {
           {/* Search/Filtter */}
           <Box w="100%" my={16}>
             <Box mx={16}>
-            {/* onPress={() => navigation.navigate("Search")} */}
-              <TouchableOpacity 
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Search")}
                 style={{
                   backgroundColor: "#EFEFEF", alignItems: "center",
                   borderRadius: 999, borderWidth: 0.3, borderColor: "#B9B9B9", padding: 10, flexDirection: "row"
@@ -100,8 +104,7 @@ const Explore = () => {
             <Box w="100%" bottom={0} position="absolute" borderRadius={30} backgroundColor="white"
               style={{ shadowColor: "black", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 8 }}>
               
-              <TouchableOpacity style={{padding:16}}>
-              {/* onPress={() => navigation.navigate("Publication")} */}
+              <TouchableOpacity style={{padding:16}} onPress={handlePublication}>
                 <Box flexDirection="row">
                   <Heading color="#525252" fontSize={24} fontWeight="$semibold">ExampleName</Heading>
                   <Icon w={24} h={24} mt={5} as={ChevronRightIcon} position="absolute" right={0} />
@@ -135,8 +138,7 @@ const Explore = () => {
             <Box w="100%" bottom={0} position="absolute" borderRadius={30} backgroundColor="white"
               style={{ shadowColor: "black", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 8 }}>
               
-              <TouchableOpacity style={{padding:16}}>
-              {/* onPress={() => navigation.navigate("Publication")} */}
+              <TouchableOpacity style={{padding:16}} onPress={handlePublication}>
                 <Box flexDirection="row">
                   <Heading color="#525252" fontSize={24} fontWeight="$semibold">ExampleName</Heading>
                   <Icon w={24} h={24} mt={5} as={ChevronRightIcon} position="absolute" right={0} />
@@ -170,8 +172,7 @@ const Explore = () => {
             <Box w="100%" bottom={0} position="absolute" borderRadius={30} backgroundColor="white"
               style={{ shadowColor: "black", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 8 }}>
               
-              <TouchableOpacity style={{padding:16}}>
-              {/* onPress={() => navigation.navigate("Publication")} */}
+              <TouchableOpacity style={{padding:16}} onPress={handlePublication}>
                 <Box flexDirection="row">
                   <Heading color="#525252" fontSize={24} fontWeight="$semibold">ExampleName</Heading>
                   <Icon w={24} h={24} mt={5} as={ChevronRightIcon} position="absolute" right={0} />

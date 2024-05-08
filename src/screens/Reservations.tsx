@@ -4,6 +4,7 @@ import { TouchableOpacity } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { MapPinned } from "lucide-react-native";
+import { screen } from "../utils";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -13,8 +14,12 @@ const NotFund = () => {
     </VStack>
 }
 
-const Pending = () => {
-    const navigation = useNavigation();
+const Pending = () => {  
+    const navigation = useNavigation(); 
+    const handlePublication = () => {
+        navigation.navigate(screen.reservations.publicationRes);
+      }
+
     return <VStack flex={1}>
         <ScrollView my={16}>
             {/* Card */}
@@ -36,7 +41,7 @@ const Pending = () => {
 
                     {/* Header/Icon */}
                     {/* onPress={() => navigation.navigate("Publication")} */}
-                    <TouchableOpacity style={{paddingHorizontal:16, paddingVertical:16}}>
+                    <TouchableOpacity style={{paddingHorizontal:16, paddingVertical:16}} onPress={handlePublication}>
 
                         <Box flexDirection="row">
                             <Text color="#525252" fontSize={22} fontWeight="$semibold">ExampleName</Text>
@@ -79,7 +84,11 @@ const Pending = () => {
 }
 
 const Upcoming = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation(); 
+    const handlePublication = () => {
+        navigation.navigate(screen.reservations.publicationRes);
+      }
+      
     return <VStack flex={1}>
         <ScrollView my={16}>
             {/* Card */}
@@ -100,8 +109,7 @@ const Upcoming = () => {
                     style={{ shadowColor: "black", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 8 }}>
 
                     {/* Header/Icon */}
-                    {/* onPress={() => navigation.navigate("Publication")} */}
-                    <TouchableOpacity style={{paddingHorizontal:16, paddingVertical:16}}>
+                    <TouchableOpacity style={{paddingHorizontal:16, paddingVertical:16}} onPress={handlePublication}>
 
                         <Box flexDirection="row">
                             <Text color="#525252" fontSize={22} fontWeight="$semibold">ExampleName</Text>

@@ -5,8 +5,12 @@ import * as ImagePicker from 'expo-image-picker';
 import { getAuth, updateProfile, signOut} from 'firebase/auth';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { screen } from "../utils";
 
 const Settings = () => {
+
+  const navigation = useNavigation();
 
   const {uid, photoURL, displayName, email} = getAuth().currentUser;
 
@@ -108,6 +112,15 @@ const Settings = () => {
                 <Button w={"$72"} flexDirection="row" alignItems="center" px={"$0"} p={10} bgColor="white" $active-bgColor="#EEEEEE" borderRadius={5}>
                     <UserRound size={32} color={"#BFA27E"} />
                     <ButtonText fontSize={"$lg"} marginLeft={"$4"} fontWeight="$normal" color="black">Personal information</ButtonText>
+                    <ButtonIcon alignItems="flex-end" ml={"$5"} size="xl" as={ChevronRightIcon} marginLeft={"auto"} color="black" />
+                </Button>
+            </Box>
+
+            <Box position="relative" alignItems="center" justifyContent="center" marginTop={"$1"} width={"100%"}>
+                <Button w={"$72"} flexDirection="row" alignItems="center" px={"$0"} p={10} bgColor="white" $active-bgColor="#EEEEEE" borderRadius={5}
+                        onPress={() => navigation.navigate(screen.settings.addPlace)}>
+                    <UserRound size={32} color={"#BFA27E"} />
+                    <ButtonText fontSize={"$lg"} marginLeft={"$4"} fontWeight="$normal" color="black">Add your place</ButtonText>
                     <ButtonIcon alignItems="flex-end" ml={"$5"} size="xl" as={ChevronRightIcon} marginLeft={"auto"} color="black" />
                 </Button>
             </Box>

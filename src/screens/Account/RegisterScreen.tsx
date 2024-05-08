@@ -1,20 +1,23 @@
-import React, { useState } from "react";
-import {View,Text,FormControl,Input,InputField,Button,ButtonText, FormControlError, FormControlHelper, FormControlHelperText, FormControlErrorText, AlertCircleIcon, FormControlErrorIcon, Spinner, Box, VStack, InputSlot, InputIcon,} from "@gluestack-ui/themed";
+import React, { useState, useEffect } from "react";
+import { View, FormControl, FormControlError, FormControlHelper, FormControlHelperText, FormControlErrorText, FormControlErrorIcon, Spinner, Box, InputSlot, InputIcon, } from "@gluestack-ui/themed";
+import { Text, Image, Button, ButtonText, FormControlLabelText, ImageBackground, Input, InputField, VStack, AlertCircleIcon } from "@gluestack-ui/themed";
+import { useFonts } from "expo-font";
+import * as SplashScreen from 'expo-splash-screen';
+
 import Background_Login from "../../components/BackGround";
 
 import { useFormik } from "formik";
 
-import {getAuth, createUserWithEmailAndPassword } from "firebase/auth"
-import {useNavigation} from "@react-navigation/native"
-import {screen} from "../../utils"
-import {initialValues, validationSchema} from "./RegisterForm.data";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
+import { useNavigation } from "@react-navigation/native"
+import { screen } from "../../utils"
+import { initialValues, validationSchema } from "./RegisterForm.data";
 import Toast from "react-native-toast-message";
-import { EyeIcon, EyeOffIcon } from "lucide-react-native";
+import { EyeIcon, EyeOffIcon, CircleUserRound, Mail, Phone, UserRound } from "lucide-react-native";
 import { TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-const Register = () => {
-
+const Register2 = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleState = () => {
     setShowPassword((showState) => {
@@ -31,18 +34,18 @@ const Register = () => {
     onSubmit: async (formValue) => {
       try {
         const auth = getAuth();
-        
+
         const infoUser = await createUserWithEmailAndPassword(
-          auth, 
-          formValue.email, 
+          auth,
+          formValue.email,
           formValue.password
-          ).then((userFirebase) => {
-            return userFirebase;
-          });
+        ).then((userFirebase) => {
+          return userFirebase;
+        });
 
-          console.log(infoUser);
+        console.log(infoUser);
 
-          navigation.navigate(screen.account.login);
+        navigation.navigate(screen.account.login);
       } catch (error) {
         Toast.show({
           type: "error",
@@ -53,160 +56,137 @@ const Register = () => {
     },
   });
 
-  return (
+  const [fontsLoaded] = useFonts({
+    "Shalimar-Regular": require("../../../assets/fonts/Shalimar-Regular.ttf")
+  });
 
-    <View flex={1} backgroundColor="black">
-    <Background_Login></Background_Login>
-      <VStack
-        mx="$8"
-        my="$20"
-        space="lg"
-        alignItems="center"
+  useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+    }
+    prepare();
+  }, []);
+
+  if (!fontsLoaded) {
+    return undefined;
+  } else {
+    SplashScreen.hideAsync();
+  }
+
+  return (
+    <VStack flex={1}>
+      <ImageBackground
+        source={require("../../../assets/Gif6.png")}
         style={{
-          justifyContent: "center",
           flex: 1,
         }}
-      >
-        <Box>
-          <Text size="3xl" fontWeight="bold" color="white" textAlign="center">
-            Register
-          </Text>
+        blurRadius={6}>
+        <Box flex={1} position="relative" justifyContent="center" bgColor="rgba(0,0,0,0.25)">
+          {/* LogoText */}
+          <Box alignItems="center" top={96} right={0} left={0} position="absolute">
+            <Image w={90} h={90} source={require("../../../assets/LogCabin.png")} />
+            <Text fontSize={64} style={{ fontFamily: "Shalimar-Regular" }} color="white">Cabapp</Text>
+          </Box>
 
-          <FormControl
-            marginTop={"$4"}
-            isInvalid={false}
-            size={"md"}
-            isDisabled={false}
-            isRequired={true}
-          >
-            {/* <FormControlLabel>
-                            <FormControlLabelText color='white'>Email</FormControlLabelText>
-                        </FormControlLabel> */}
-            <Input 
-            borderRadius="$xl" 
-            bgColor="white">
-              <InputField
-                type="text"
-                placeholder="Email"
-                fontWeight="$bold"
-                onChangeText={(text) => formik.setFieldValue("email", text)}
-              />
-            </Input>
-            <FormControlHelper>
-              <FormControlHelperText color="red">
-                {formik.errors.email}
-              </FormControlHelperText>
-            </FormControlHelper>
-          </FormControl>
+          <Box mx={16} mt={30}>
+            {/* LoginText */}
+            <Box>
+              <Box my={16}>
+                <Text w="100%" fontSize={30} fontWeight="$normal" color='white' position="absolute" left={6}>
+                  Register
+                </Text>
+              </Box>
 
-          <FormControl
-            marginTop={"$4"}
-            size={"md"}
-            isDisabled={false}
-            isRequired={true}
-          >
-            {/* <FormControlLabel>
-                            <FormControlLabelText color='white'>Password</FormControlLabelText>
-                        </FormControlLabel> */}
-            <Input 
-            borderRadius="$xl" 
-            bgColor="white">
-              <InputField
-                fontWeight="$bold"
-                onChangeText={(text) => formik.setFieldValue("password", text)}
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                backgroundColor="white"
-              />
-              <InputSlot pr="$3" onPress={handleState} backgroundColor="white">
-                <InputIcon
-                  as={showPassword ? EyeIcon : EyeOffIcon}
-                  color="$darkBlue500"
-                />
-              </InputSlot>
-            </Input>
+              {/* Form/Email/Password */}
+              <Box mt={32}>
+                {/* Form Email */}
+                <Box my={16} mt={0}>
+                  <FormControl isInvalid={false} size={"md"} isDisabled={false} isRequired={true}>
+                    <Input w="100%" h={50} $focus-borderColor="#BFA27E" borderRadius={30} bgColor="rgba(0,0,0,0.4)" borderWidth={2}>
+                      <InputField type="text" fontSize={18} pl={24} pr={50} fontWeight="$normal" placeholder="Email" color="white" borderRadius={30}
+                        onChangeText={(text) => formik.setFieldValue("email", text)} />
+                    </Input>
+                    <Box h={50} position="absolute" justifyContent="center" right={22}>
+                      <Mail width={20} height={20} color="white" />
+                    </Box>
 
-            <FormControlHelper>
-              <FormControlHelperText color="red">
-                {formik.errors.password}
-              </FormControlHelperText>
-            </FormControlHelper>
-          </FormControl>
+                    <FormControlHelper>
+                      <FormControlHelperText color="red">
+                        {formik.errors.email}
+                      </FormControlHelperText>
+                    </FormControlHelper>
+                  </FormControl>
+                </Box>
 
-          <FormControl
-            marginTop={"$4"}
-            size={"md"}
-            isDisabled={false}
-            isRequired={true}
-          >
-            {/* <FormControlLabel>
-                            <FormControlLabelText color='white'>Repeat password</FormControlLabelText>
-                        </FormControlLabel> */}
-            <Input 
-            borderRadius="$xl" 
-            bgColor="white">
-            <InputField
-                fontWeight="$bold"
-                onChangeText={(text) => formik.setFieldValue("repeatPassword", text)}
-                type={showPassword ? "text" : "password"}
-                placeholder="Repeat Password"
-                backgroundColor="white"
-              />
-              <InputSlot pr="$3" onPress={handleState} backgroundColor="white">
-                <InputIcon
-                  as={showPassword ? EyeIcon : EyeOffIcon}
-                  color="$darkBlue500"
-                />
-              </InputSlot>
-            </Input>
+                {/* From Password */}
+                <Box my={16} mt={-10}>
+                  <FormControl size={"md"} isDisabled={false} isRequired={true}>
+                    <Input w="100%" h={50} $focus-borderColor="#BFA27E" borderRadius={30} bg="rgba(0,0,0,0.4)" borderWidth="$2">
+                      <InputField type={showPassword ? "text" : "password"} pl={24} pr={16} fontSize={18} fontWeight="$normal" color="white" placeholder="Password"  borderRadius={30}
+                        onChangeText={(text) => formik.setFieldValue("password", text)} />
+                      <InputSlot pr={22} onPress={handleState}>
+                        <InputIcon
+                          as={showPassword ? EyeIcon : EyeOffIcon}
+                          color="white"
+                        />
+                      </InputSlot>
+                    </Input>
 
-            <FormControlHelper>
-              <FormControlHelperText color="red">
-                {formik.errors.repeatPassword}
-              </FormControlHelperText>
-            </FormControlHelper>
-          </FormControl>
+                    <FormControlHelper>
+                      <FormControlHelperText color="red">
+                        {formik.errors.password}
+                      </FormControlHelperText>
+                    </FormControlHelper>
+                  </FormControl>
+                </Box>
 
-          <Button
-            action={"primary"}
-            variant={"link"}
-            size={"md"}
-            marginVertical={"$1"}
-            isDisabled={false}
-            marginTop={"$3"}
-            onPress={() => navigation.navigate(screen.account.login)}
-          >
-            <ButtonText
-              color="white"
-              size="sm"
-              fontWeight="$bold"
-              paddingRight={"$7"}
-            >
-              Do you already have an account? Log in here
-            </ButtonText>
-          </Button>
-          
+                {/* From repeat Password */}
+                <Box my={16} mt={-10}>
+                  <FormControl size={"md"} isDisabled={false} isRequired={true}>
+                    <Input w="100%" h={50} $focus-borderColor="#BFA27E" borderRadius={30} bg="rgba(0,0,0,0.4)" borderWidth="$2">
+                      <InputField type={showPassword ? "text" : "password"} pl={24} pr={16} fontSize={18} fontWeight="$normal" color="white" placeholder="Repeat password" borderRadius={30}
+                        onChangeText={(text) => formik.setFieldValue("repeatPassword", text)} />
+                      <InputSlot pr={22} onPress={handleState}>
+                        <InputIcon
+                          as={showPassword ? EyeIcon : EyeOffIcon}
+                          color="white"
+                        />
+                      </InputSlot>
+                    </Input>     
+
+                    <FormControlHelper>
+                      <FormControlHelperText color="red">
+                        {formik.errors.repeatPassword}
+                      </FormControlHelperText>
+                    </FormControlHelper>
+                  </FormControl>
+                </Box>
+              </Box>
+
+              {/* ButtonRegister */}
+              <Box mt={-16} alignItems="center">
+                <TouchableOpacity style={{ width: "100%", height: 50, marginTop: 16, borderRadius: 40, backgroundColor: "rgba(255,255,255,0.9)", justifyContent: "center", alignItems: "center"}}
+                onPress={formik.handleSubmit}>
+                  <Text fontSize={19} fontWeight="$normal" color="black">
+                    Register
+                  </Text>
+                </TouchableOpacity>
+              </Box>
+
+            </Box>
+          </Box>
+
+          {/* ButtonLinkSignUp */}
+          <Box position="absolute" marginVertical={24} left={0} right={0} bottom={16} alignItems="center" justifyContent="center">
+            <Button variant="link" flexDirection="row" onPress={() => navigation.navigate(screen.account.login)}>
+              <ButtonText fontSize={16} color="white">Do you have an account? </ButtonText>
+              <ButtonText fontSize={16} color="white" fontWeight="$bold">Login!</ButtonText>
+            </Button>
+          </Box>
         </Box>
-
-        <TouchableOpacity
-            style={{
-              backgroundColor: "black",
-              padding: 10,
-              borderRadius: 16,
-              alignItems: "center",
-              width: 110,
-            }}
-            onPress={formik.handleSubmit}
-          >
-            <Text color="white" fontSize={18}>
-              Register
-            </Text>
-          </TouchableOpacity>
-
-      </VStack>
-     
-      </View>
-
+      </ImageBackground>
+    </VStack>
   );
-};
-export default Register;
+}
+
+export default Register2;

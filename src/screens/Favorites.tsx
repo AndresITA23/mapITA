@@ -3,9 +3,14 @@ import {Box, Button, SafeAreaView, ScrollView, Text, Image, ButtonIcon, Favourit
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MapPinned } from "lucide-react-native";
+import { screen } from "../utils";
 
 const Favorites = () => {
     const navigation = useNavigation();
+
+    const handlePublication = () => {
+        navigation.navigate(screen.favorites.publicationFav);
+      }
 
     useEffect(() => {
         navigation.setOptions({
@@ -33,8 +38,7 @@ const Favorites = () => {
                     <Box w="100%"  bottom={0} borderRadius={15} backgroundColor="rgba(255,255,255,0.85)" position="absolute"
                         style={{ shadowColor: "black", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 8 }}>
                         {/* Header/Icon */}
-                        <TouchableOpacity style={{padding:16}}>
-                        {/* onPress={() => navigation.navigate("Publication")} */}
+                        <TouchableOpacity style={{padding:16}} onPress={handlePublication}>
                             <Box flexDirection="row">
                                 <Text fontSize={22} color="#525252" fontWeight="$semibold">ExampleName</Text>
                                 <Icon w={24} h={24} top={5} position="absolute" right={0} as={ChevronRightIcon} />
