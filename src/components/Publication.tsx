@@ -498,6 +498,7 @@ const Publication = (props) => {
                   UserExample
                 </Text>
               </Box>
+              
               <Box marginTop={16}>
                 <Box flexDirection="row" justifyContent="space-between">
                   <Image
