@@ -1,13 +1,29 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, Button, Image, Text, Box, Heading, VStack, Icon, ChevronRightIcon, ScrollView } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { Animated, TouchableOpacity } from 'react-native';
+import { collection, onSnapshot, orderBy, query} from 'firebase/firestore';
 import { Search, Heart, MapPin, ChevronDownIcon, MapPinned } from 'lucide-react-native';
+import ListPlaces from '../components/ListPlaces';
 
-import { screen } from "../utils";
+import { screen, db } from "../utils";
 
-const Explore = () => {
+const Explore = (props) => {
   const navigation = useNavigation();
+
+  const [places, setPlaces] = useState(null); 
+
+  useEffect(() => {
+    const q = query(
+      collection(db, "places"),
+      orderBy("createdAt", "desc")
+    );
+
+    onSnapshot(q, (snapshot) => {
+      const placesData = snapshot.docs.map((doc) => doc.data());
+      setPlaces(placesData);
+    });
+  }, []);
 
   const handleAddPlacePress = () => {
     navigation.navigate(screen.explore.addPlace);
@@ -93,14 +109,17 @@ const Explore = () => {
           scrollEventThrottle={16}
           bounces={false}
           contentContainerStyle={{ paddingTop: 174 }}>
-          <Box my={16} mx={16} h={450} borderRadius={30}>
+
+          <ListPlaces places={places}></ListPlaces>
+
+          {/* This is the component for the place */}
+          {/* <Box my={16} mx={16} h={450} borderRadius={30}>
             <Image w="100%" h={335} borderRadius={30} source={require("../../assets/Cabañabonita.jpg")} />
 
             <Box h={45} w={45} alignItems="center" justifyContent="center" opacity="$90" position='absolute' borderRadius={999} bgColor="white" right={16} top={16}>
               <Heart color="#222222" size={24} />
             </Box>
 
-            {/* Info Card */}
             <Box w="100%" bottom={0} position="absolute" borderRadius={30} backgroundColor="white"
               style={{ shadowColor: "black", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 8 }}>
               
@@ -125,16 +144,17 @@ const Explore = () => {
                 </Box>
               </TouchableOpacity>
             </Box>
-          </Box>
+          </Box> */}
 
-          <Box my={16} mx={16} mt={0} h={450} borderRadius={30}>
+
+
+          {/* <Box my={16} mx={16} mt={0} h={450} borderRadius={30}>
             <Image w="100%" h={335} borderRadius={30} source={require("../../assets/Cabañabonita.jpg")} />
 
             <Box h={45} w={45} alignItems="center" justifyContent="center" opacity="$90" position='absolute' borderRadius={999} bgColor="white" right={16} top={16}>
               <Heart color="#222222" size={24} />
             </Box>
 
-            {/* Info Card */}
             <Box w="100%" bottom={0} position="absolute" borderRadius={30} backgroundColor="white"
               style={{ shadowColor: "black", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 8 }}>
               
@@ -159,16 +179,15 @@ const Explore = () => {
                 </Box>
               </TouchableOpacity>
             </Box>
-          </Box>
+          </Box> */}
 
-          <Box my={16} mx={16} mt={0} h={450} borderRadius={30}>
+          {/* <Box my={16} mx={16} mt={0} h={450} borderRadius={30}>
             <Image w="100%" h={335} borderRadius={30} source={require("../../assets/Cabañabonita.jpg")} />
 
             <Box h={45} w={45} alignItems="center" justifyContent="center" opacity="$90" position='absolute' borderRadius={999} bgColor="white" right={16} top={16}>
               <Heart color="#222222" size={24} />
             </Box>
 
-            {/* Info Card */}
             <Box w="100%" bottom={0} position="absolute" borderRadius={30} backgroundColor="white"
               style={{ shadowColor: "black", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 8 }}>
               
@@ -193,7 +212,7 @@ const Explore = () => {
                 </Box>
               </TouchableOpacity>
             </Box>
-          </Box>
+          </Box> */}
 
           <Button
             w={"$72"}

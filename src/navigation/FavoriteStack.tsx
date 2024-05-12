@@ -2,7 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Favorites from '../screens/Favorites';
 import {screen} from '../utils'
-import Publication from '../screens/Publication';
+import Publication from '../components/Publication';
 
 const Stack = createNativeStackNavigator();
 

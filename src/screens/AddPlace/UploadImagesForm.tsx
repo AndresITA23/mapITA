@@ -1,12 +1,18 @@
-import { View, Text, Button, ButtonText } from "@gluestack-ui/themed";
+import { View, Text, Button, ButtonText, Avatar, AvatarImage, Image } from "@gluestack-ui/themed";
 import React from "react";
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 import { v4 as uuid } from 'uuid';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { TouchableOpacity } from "react-native";
+import LoadingModal from "../../components/LoadingModal";
 
 const UploadImagesForm = (props) => {
   const { formik } = props;
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const [image, setImage] = useState(null);
 
   
@@ -24,6 +30,7 @@ const UploadImagesForm = (props) => {
 
     if (!result.canceled) {
       const uri = result.assets[0].uri; 
+      setIsLoading(true);
       uploadImage(uri);
     }
   };
@@ -33,25 +40,43 @@ const UploadImagesForm = (props) => {
     const blob = await response.blob();
 
     const storage = getStorage();
-    const storageRef = ref(storage, `restaurants/${uuid()}`);
+    const storageRef = ref(storage, `places/${uuid()}`);
 
     uploadBytes(storageRef, blob).then((snapshot) => {
-        console.log(snapshot)
+        updatePhotosRestaurant(snapshot.metadata.fullPath)
     });
   };
 
+  const updatePhotosRestaurant = async (imagePath) => {
+    const storage = getStorage();
+    const imageRef = ref(storage, imagePath);
+
+    const imageUrl = await getDownloadURL(imageRef);
+    
+    formik.setFieldValue("images", [...formik.values.images, imageUrl]);
+
+    setIsLoading(false);
+  }
+
   return (
-    <View>
-      <Button
-        action={"primary"}
-        variant={"solid"}
-        size={"lg"}
-        isDisabled={false}
-        onPress={pickImage}
-      >
-      <ButtonText>AddImage</ButtonText>
-      </Button>
-    </View>
+    <>
+      
+      <View>
+        <TouchableOpacity onPress={pickImage}>
+          <MaterialCommunityIcons name="camera-burst" size={48} color="black" />
+        </TouchableOpacity>
+      </View>
+      {formik.errors.images && ( // Mostrar solo si hay errores relacionados con las imágenes
+        <View>
+          <Text color="red">{formik.errors.images}</Text>
+        </View>
+      )}
+  
+      {isLoading && ( 
+        <LoadingModal show={isLoading} text="Uploading image"></LoadingModal>
+      )}
+    </>
   );
+  
 };
 export default UploadImagesForm;

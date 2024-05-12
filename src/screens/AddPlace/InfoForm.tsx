@@ -16,7 +16,6 @@ const InfoForm = (props) => {
 
   return (
     <>
-    <VStack h={'$2/3'} marginBottom={'$1/4'}>
     <View>
       <FormControl
         marginTop={"$4"}
@@ -61,7 +60,6 @@ const InfoForm = (props) => {
         </FormControlHelper>
       </FormControl>
 
-      
 
       <FormControl
         marginTop={"$4"}
@@ -85,6 +83,31 @@ const InfoForm = (props) => {
         </FormControlHelper>
       </FormControl>
 
+      <TouchableOpacity onPress={onOpenCloseMap}>
+        <MapPinned color={getColorIconMap(formik)} size={38}/> 
+      </TouchableOpacity>
+
+      <FormControl
+        marginTop={"$4"}
+        isInvalid={false}
+        size={"md"}
+        isDisabled={false}
+        isRequired={true}
+      >
+        <Input borderRadius="$xl" bgColor="white">
+          <InputField
+            type="text"
+            placeholder="Price for night"
+            fontWeight="$bold"
+            onChangeText={(text) => formik.setFieldValue("price", text)}
+          />
+        </Input>
+        <FormControlHelper>
+          <FormControlHelperText color="red">
+            {formik.errors.price}
+          </FormControlHelperText>
+        </FormControlHelper>
+      </FormControl>
       
 
       <FormControl
@@ -131,16 +154,12 @@ const InfoForm = (props) => {
         </FormControlHelper>
       </FormControl>
 
-      <TouchableOpacity onPress={onOpenCloseMap}>
-        <MapPinned color={getColorIconMap(formik)}/> 
-      </TouchableOpacity>
-
+      
       </View>
 
-      
+      {showModal && (
       <MapForm show={showModal} close={() => setShowModal(false)} formik={formik}/>
-
-    </VStack>
+    )}
     </>
   );
 };

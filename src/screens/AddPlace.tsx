@@ -11,7 +11,7 @@ const AddStack = createNativeStackNavigator();
 const NamePlace = () => {
     const navigation = useNavigation();
     return (
-        <VStack flex={1} backgroundColor="white">
+        <VStack flex={0.9} backgroundColor="white">
             <Box mx={16} mt={38}>
                 <Heading style={styles.headerText}>What is the name of your place?</Heading>
             </Box>
@@ -40,7 +40,7 @@ const NamePlace = () => {
 const DescriptionPlace = () => {
     const navigation = useNavigation();
     return (
-        <VStack flex={1} backgroundColor="white">
+        <VStack flex={0.9} backgroundColor="white">
             <Box mx={16} mt={38}>
                 <Heading style={styles.headerText}>What description would you give to your place?</Heading>
             </Box>

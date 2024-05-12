@@ -7,6 +7,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { screen } from "../utils";
+import LoadingModal from "../components/LoadingModal";
 
 const Settings = () => {
 
@@ -15,6 +16,8 @@ const Settings = () => {
   const {uid, photoURL, displayName, email} = getAuth().currentUser;
 
   const [avatar, setAvatar] = useState(photoURL);
+  const [isLoading, setIsLoading] = useState(false);
+  
   const [image, setImage] = useState(null);
 
   //Change and upload avatar photo
@@ -28,6 +31,7 @@ const Settings = () => {
 
     if (!result.canceled) {
         const uri = result.assets[0].uri; 
+        setIsLoading(true);
         uploadImage(uri);
       }
   };
@@ -68,6 +72,7 @@ const Settings = () => {
     } catch (error) {
       console.error("Error updating profile photo:", error);
     }
+    setIsLoading(false);
   };
 
   //Function to logout
@@ -84,7 +89,8 @@ const Settings = () => {
  
 
   return (
-    <VStack flex={1} space="lg" backgroundColor="#EFEFEF">
+    <>
+    <VStack space="lg" backgroundColor="#EFEFEF">
         <View  mx={"$8"} marginTop={"$12"} alignItems="center" borderRadius={"$3xl"} backgroundColor="white"
             style={{shadowColor: "black", shadowOffset: { width: 0, height: 6}, shadowOpacity: 0.25, shadowRadius: 4, elevation: 8}}>
             <Heading w={"$72"} marginTop={"$4"} fontSize={"$2xl"}>Profile</Heading>
@@ -163,6 +169,9 @@ const Settings = () => {
             </Box>
         </View>
     </VStack>
+
+    <LoadingModal show={isLoading} text="Updating profile image"></LoadingModal>
+    </>
 
   );
 };

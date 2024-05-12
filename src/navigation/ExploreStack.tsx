@@ -5,7 +5,7 @@ import AddPlaceScreen from '../screens/AddPlace/AddPlaceScreen';
 import {screen} from '../utils'
 import Search from '../screens/Search';
 import Filtters from '../screens/Filtters';
-import Publication from '../screens/Publication';
+import Publication from '../components/Publication';
 
 const Stack = createNativeStackNavigator();
 
