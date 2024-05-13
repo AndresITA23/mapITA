@@ -21,7 +21,7 @@ const ListPlaces = (props) => {
         renderItem={({ item }) => (
 
           <Box my={16} mx={16} h={450} borderRadius={30}>
-            <Image w="100%" h={335} borderRadius={30} source={{uri: item.images[0]}} />
+            <Image w="100%" h={335} borderRadius={30} source={{uri: item.images[0]}} alt="image of the list places"/>
 
             <Box h={45} w={45} alignItems="center" justifyContent="center" opacity="$90" position='absolute' borderRadius={999} bgColor="white" right={16} top={16}>
               <Heart color="#222222" size={24} />

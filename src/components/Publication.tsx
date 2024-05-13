@@ -1,4 +1,4 @@
-import { Center, ButtonText, ButtonGroup, Icon, AddIcon, InfoIcon, ButtonSpinner, ArrowUpIcon, HStack, ThreeDotsIcon, Input, InputField, Avatar, Link, AvatarFallbackText } from '@gluestack-ui/themed';
+import { Center, ButtonText, ButtonGroup, Icon, AddIcon, InfoIcon, ButtonSpinner, ArrowUpIcon, HStack, ThreeDotsIcon, Input, InputField, Avatar, Link, AvatarFallbackText, FormControlErrorIcon, FormControlHelper, FormControlHelperText } from '@gluestack-ui/themed';
 import { AvatarImage, TextareaInput, Box, Text, ButtonIcon, Button, ChevronLeftIcon, FavouriteIcon, Image, ShareIcon, Heading, View, ScrollView, VStack, Textarea } from "@gluestack-ui/themed";
 import { useNavigation } from '@react-navigation/native';
 import React, {useState, useEffect} from "react";
@@ -8,11 +8,13 @@ import { db } from '../utils';
 import MapView, { Marker } from "react-native-maps";
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import Carousel from "pinar";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { Clock, MapPinned } from 'lucide-react-native';
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import openMap from 'react-native-open-maps'
+import openMap from 'react-native-open-maps';
+import {useFormik} from 'formik';
+import {initialValues, validationSchema} from './ReviewPlace.data';
 
 const styles = StyleSheet.create({
     slide1: {
@@ -31,7 +33,17 @@ const styles = StyleSheet.create({
 });
 
 const Publication = (props) => {
+
     const {route} = props;
+
+    const formik = useFormik({
+      initialValues: initialValues(),
+      validationSchema: validationSchema(),
+      validateOnChange: false,
+      onSubmit: async (formValue) => {
+        console.log(formValue)
+      },
+    });
 
     const [publication, setPublication] = useState(null);
     const [userAvatarUrl, setUserAvatarUrl] = useState(null);
@@ -108,6 +120,7 @@ const Publication = (props) => {
                 <View key={index} style={styles.slide1}>
                   <Image
                     source={{ uri: image }}
+                    alt='image of the place'
                     style={{ width: "100%", height: "100%" }}
                   />
                 </View>
@@ -421,7 +434,7 @@ const Publication = (props) => {
               </Box>
             </Box>
 
-            {/* Opinions */}
+            {/* Opinions average */}
             <Box mx={16} my={16} marginTop={0}>
               <Text color="#333333" fontSize={18} fontWeight="$semibold">
                 Opinions
@@ -437,6 +450,8 @@ const Publication = (props) => {
                   source={require("../../assets/Stars.png")}
                 />
               </Box>
+
+              {/* ReviewPlace */}
               <Box marginTop={10} alignItems="center">
                 <Text color="#333333" fontSize={18} fontWeight="$semibold">
                   Write your opinion
@@ -444,7 +459,8 @@ const Publication = (props) => {
                 <AirbnbRating
                   reviews={["1", "2", "3", "4", "5"]}
                   count={5}
-                  defaultRating={0}
+                  defaultRating={formik.values.rating}
+                  onFinishRating={(rating) => formik.setFieldValue("rating", rating)}
                   size={30}
                 />
                 <Textarea
@@ -454,14 +470,18 @@ const Publication = (props) => {
                   isInvalid={true}
                   isDisabled={false}
                 >
-                  <TextareaInput placeholder="Your text goes here..." />
+                  <TextareaInput onChangeText={(text) => formik.setFieldValue("comment", text)} 
+                  placeholder="Your text goes here..." />
+                  
                 </Textarea>
-
+                <Text color="red">{formik.errors.comment}</Text>
+                
                 <Button
                   marginTop={10}
                   backgroundColor="#BFA27E"
                   size={"lg"}
                   isDisabled={false}
+                  onPress={formik.handleSubmit}
                 >
                   <ButtonText>Send</ButtonText>
                 </Button>
@@ -499,31 +519,6 @@ const Publication = (props) => {
                 </Text>
               </Box>
               
-              <Box marginTop={16}>
-                <Box flexDirection="row" justifyContent="space-between">
-                  <Image
-                    w={90}
-                    h={16}
-                    source={require("../../assets/Stars.png")}
-                  ></Image>
-                  <Text fontWeight="$light" size="sm">
-                    22 mar. 2024
-                  </Text>
-                </Box>
-                <Text marginTop={5} fontSize={15} fontWeight="$light">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum
-                </Text>
-                <Text fontSize={14} fontWeight="$light" marginTop={5}>
-                  UserExample
-                </Text>
-              </Box>
             </Box>
           </Box>
         </ScrollView>

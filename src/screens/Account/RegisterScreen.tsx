@@ -77,6 +77,7 @@ const Register2 = () => {
     <VStack flex={1}>
       <ImageBackground
         source={require("../../../assets/Gif6.png")}
+        alt="image background"
         style={{
           flex: 1,
         }}
