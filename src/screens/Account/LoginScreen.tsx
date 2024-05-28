@@ -88,7 +88,7 @@ const Login2 = () => {
         <Box flex={1} position="relative" justifyContent="center" bgColor="rgba(0,0,0,0.25)">
           {/* LogoText */}
           <Box alignItems="center" top={96} right={0} left={0} position="absolute">
-            <Image w={90} h={90} source={require("../../../assets/LogCabin.png")} />
+            <Image w={90} h={90} source={require("../../../assets/LogCabin.png")} alt="logoApp"/>
             <Text fontSize={64} style={{ fontFamily: "Shalimar-Regular" }} color="white">Cabapp</Text>
           </Box>
 

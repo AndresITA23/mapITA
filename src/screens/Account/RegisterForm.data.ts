@@ -5,6 +5,7 @@ export function initialValues() {
         email: "",
         password: "",
         repeatPassword: "",
+        isAdmin: "false",
     }
 }
 

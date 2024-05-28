@@ -1,108 +1,190 @@
-import { SafeAreaView, VStack, Text, Box, Image, ScrollView, HStack } from "@gluestack-ui/themed";
+import {
+  SafeAreaView,
+  VStack,
+  Text,
+  Box,
+  Image,
+  ScrollView,
+  HStack,
+  onChange,
+  Heading,
+  FormControl,
+  Input,
+  InputField,
+  View,
+  Icon,
+} from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
-import { SlidersHorizontal, X, Star } from "lucide-react-native";
-import React, { useEffect } from "react";
+import { SlidersHorizontal, X, Star, ChevronRightIcon, MapPinned } from "lucide-react-native";
+import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { screen } from "../utils";
+import { FontAwesome } from "@expo/vector-icons";
+import {collection, query, startAt, endAt, limit, orderBy, getDocs } from 'firebase/firestore';
+import {db} from '../utils';
+import { size, map } from "lodash";
 
 const Search = () => {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
+  const [searchText, setSearchText] = React.useState("");
+  const [searchResults, setSearchResults] = useState(null);
 
-    useEffect(() => {
-        navigation.setOptions({
-            animation: 'fade',
-            headerTitleStyle: {
-                fontSize: 20,
-            },
-            headerTitle: "Search",
-            headerRight: () => (
-                <TouchableOpacity onPress={() => navigation.navigate(screen.explore.filtters)}>
-                    <Box alignItems="center" justifyContent="center">
-                        <SlidersHorizontal  color="rgba(64, 64, 64, 1)" size={24} />
-                    </Box>
-                </TouchableOpacity>
-            ),
-            headerLeft: () => (
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Box alignItems="center" borderRadius={10} justifyContent="center">
-                        <X color="rgba(64, 64, 64, 1)" size={24} />
-                    </Box>
-                </TouchableOpacity>
-            ),
-            headerSearchBarOptions: {
-                placeholder: "Search...",
-            },
-        });
-    }, [navigation]);
+  
 
-    return (
-        <VStack flex={1}>
-            <Box></Box>
-            <SafeAreaView flex={1} >
-                <ScrollView>
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      animation: "fade",
+      headerTitleStyle: {
+        fontSize: 20,
+      },
+      headerTitle: "Search",
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Box alignItems="center" borderRadius={10} justifyContent="center">
+            <X color="rgba(64, 64, 64, 1)" size={24} />
+          </Box>
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
 
-                    <Box mx={16} my={16}>
-                        {/* Popular Places */}
-                        <Box w="100%">
-                            <Text fontSize={18} fontWeight="$bold">The most popular places</Text>
-                        </Box>
+  useEffect (() => {
+    (async () => {
+        const q = query(
+            collection(db, "places"),
+            orderBy("name"),
+            startAt(searchText),
+            endAt(`${searchText}\uf8ff`),
+            limit(20)
+        )
+        const querySnapshot = await getDocs(q)
+        setSearchResults(querySnapshot.docs)
+    })()
+  }, [searchText])
 
-                        {/* Card Popular Places */}
-                        <ScrollView horizontal={true} p={8} pb={16} mx={-8}>
-                            <HStack justifyContent='space-between'>
-                                <TouchableOpacity style={{ marginRight: 16 }}>
-                                    <Box w={280} h={260} mt={8} borderRadius={15} backgroundColor="white"
-                                        style={{ shadowColor: "black", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 8 }}>
-                                        <Box mx={16} my={16}>
-                                            <Image w="100%" h={160} borderRadius={15} source={require("../../assets/PruebaImage.png")} />
-                                        </Box>
-                                        <Box mx={16} alignItems="center" flexDirection="row">
-                                            <Text fontSize={16} fontWeight="$bold">Example Name</Text>
-                                            <Box right={0} position="absolute" flexDirection="row" alignItems="center">
-                                                <Star size={16} color="#5A5A5A" />
-                                                <Text pl={2} fontSize={16} fontWeight="$normal" color="#5A5A5A">4.91</Text>
-                                            </Box>
-                                        </Box>
-                                        <Box mx={16} bottom={16} position="absolute" >
-                                            <Text fontWeight="$medium" fontSize={15}>Location DataBase • City</Text>
-                                        </Box>
-                                    </Box>
-                                </TouchableOpacity>
-                            </HStack>
-                        </ScrollView>
+  const goToPublication = (id) => {
+    navigation.navigate(screen.explore.tab, {
+      screen: screen.explore.publicationExp,
+      params: {
+        id: id,
+      },
+    });
+  };
 
-                        {/* Recommended for you */}
-                        <Box w="100%" mt={8}>
-                            <Text fontSize={18} fontWeight="$bold">Recommended for you</Text>
-                        </Box>
+  return (
+    <VStack flex={1}>
+      <SafeAreaView flex={1}>
+        <ScrollView>
+          <Box mx={16} my={16}>
 
-                        {/* Card Recommended for you */}
-                        <Box>
-                            <TouchableOpacity>
-                                <Box w="100%" h={295} mt={16} borderRadius={15} backgroundColor="white"
-                                    style={{ shadowColor: "black", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 8 }}>
-                                    <Box mx={16} my={16}>
-                                        <Image w="100%" h={186} borderRadius={15} source={require("../../assets/PruebaImage.png")} />
-                                    </Box>
-                                    <Box mx={16} alignItems="center" flexDirection="row">
-                                        <Text fontSize={18} fontWeight="$bold">Example Name</Text>
-                                        <Box right={0} position="absolute" flexDirection="row" alignItems="center">
-                                            <Star size={18} color="#5A5A5A" />
-                                            <Text pl={2} fontSize={18} fontWeight="$normal" color="#5A5A5A">4.91</Text>
-                                        </Box>
-                                    </Box>
-                                    <Box mx={16} bottom={16} position="absolute" >
-                                        <Text fontWeight="$medium" fontSize={18}>Location DataBase • City</Text>
-                                    </Box>
-                                </Box>
-                            </TouchableOpacity>
-                        </Box>
-                    </Box>
+              
+              <FormControl
+                marginTop={"$4"}
+                isInvalid={false}
+                size={"md"}
+                isDisabled={false}
+                isRequired={true}
+              >
+                <Input borderRadius="$xl" bgColor="white">
+                <FontAwesome name="search" size={22} color="gray" style={{left: 8, top: 6 }}/>
+                  <InputField
+                    marginLeft={6}
+                    type="text"
+                    placeholder="Search"
+                    fontWeight="$bold"
+                    onChangeText={(text) => setSearchText(text)}
+                  />
+                </Input>
+              </FormControl>
+ 
+          </Box>
 
-                </ScrollView>
-            </SafeAreaView>
-        </VStack>
-    );
-}
+          {size(searchResults) === 0 ? (
+            <View alignItems="center" marginTop={20}>
+                <Heading>No places found</Heading>
+            </View>
+          ): (
+            map(searchResults, (item) => {
+                const data = item.data();
+                return (
+                    <>
+              <Box mx={16} marginTop={16} my={16}>
+                <Image
+                  w="100%"
+                  h={289}
+                  borderRadius={15}
+                  source={{ uri: data.images[0] }}
+                  alt={"favorites"}
+                />
+
+                {/* Main Content Card */}
+                <Box
+                  w="100%"
+                  bottom={0}
+                  borderRadius={15}
+                  backgroundColor="rgba(255,255,255,0.85)"
+                  position="absolute"
+                  style={{
+                    shadowColor: "black",
+                    shadowOffset: { width: 0, height: 6 },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 4,
+                    elevation: 8,
+                  }}
+                >
+
+                        <TouchableOpacity
+                      style={{ padding: 16 }}
+                      key={data.id}
+                      onPress={() => goToPublication(data.id)}
+                    >
+                      <Box flexDirection="row">
+                        <Text
+                          fontSize={22}
+                          color="#525252"
+                          fontWeight="$semibold"
+                        >
+                          {data.name}
+                        </Text>
+                        <Icon
+                          w={24}
+                          h={24}
+                          top={5}
+                          position="absolute"
+                          right={0}
+                          as={ChevronRightIcon}
+                        />
+                      </Box>
+
+                      <Box mt={10} flexDirection="row" alignItems="center">
+                        <MapPinned size={24} color="#666666" />
+                        <Text ml={5} fontWeight="$semibold" fontSize={14}>
+                          {" "}
+                          {data.address}
+                        </Text>
+                      </Box>
+
+                      <Box mt={10} flexDirection="row">
+                        <Text fontWeight="$bold" fontSize={16} color="#5C5C5C">
+                          MXN ${data.price}
+                        </Text>
+                        <Text ml={6} top={2} fontSize={14} fontWeight="$normal">
+                          por noche
+                        </Text>
+                      </Box>
+                    </TouchableOpacity>
+
+                </Box>
+              </Box>
+            </>
+                )
+            })
+          )}
+
+        </ScrollView>
+      </SafeAreaView>
+    </VStack>
+  );
+};
 
 export default Search;

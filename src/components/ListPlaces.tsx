@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Box,Image, Heading, Icon } from "@gluestack-ui/themed"; // Asegúrate de importar los componentes de tu librería de UI
+import { View, Text, FlatList, Box,Image, Heading, Icon } from "@gluestack-ui/themed";
 import { ChevronRightIcon, Heart, MapPinned } from "lucide-react-native";
 import { TouchableOpacity } from "react-native";
 import {useNavigation} from '@react-navigation/native'
@@ -23,9 +23,9 @@ const ListPlaces = (props) => {
           <Box my={16} mx={16} h={450} borderRadius={30}>
             <Image w="100%" h={335} borderRadius={30} source={{uri: item.images[0]}} alt="image of the list places"/>
 
-            <Box h={45} w={45} alignItems="center" justifyContent="center" opacity="$90" position='absolute' borderRadius={999} bgColor="white" right={16} top={16}>
+            {/* <Box h={45} w={45} alignItems="center" justifyContent="center" opacity="$90" position='absolute' borderRadius={999} bgColor="white" right={16} top={16}>
               <Heart color="#222222" size={24} />
-            </Box>
+            </Box> */}
 
             <Box w="100%" bottom={0} position="absolute" borderRadius={30} backgroundColor="white"
               style={{ shadowColor: "black", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 8 }}>

@@ -29,9 +29,6 @@ const Explore = (props) => {
     navigation.navigate(screen.explore.addPlace);
   };
 
-  const handlePublication = () => {
-    navigation.navigate(screen.explore.publicationExp);
-  }
 
   const scrollY = useRef(new Animated.Value(0)).current;
   const headerTranslateY = Animated.diffClamp(scrollY, 0, 144).interpolate({
@@ -112,109 +109,7 @@ const Explore = (props) => {
 
           <ListPlaces places={places}></ListPlaces>
 
-          {/* This is the component for the place */}
-          {/* <Box my={16} mx={16} h={450} borderRadius={30}>
-            <Image w="100%" h={335} borderRadius={30} source={require("../../assets/Cabañabonita.jpg")} />
-
-            <Box h={45} w={45} alignItems="center" justifyContent="center" opacity="$90" position='absolute' borderRadius={999} bgColor="white" right={16} top={16}>
-              <Heart color="#222222" size={24} />
-            </Box>
-
-            <Box w="100%" bottom={0} position="absolute" borderRadius={30} backgroundColor="white"
-              style={{ shadowColor: "black", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 8 }}>
-              
-              <TouchableOpacity style={{padding:16}} onPress={handlePublication}>
-                <Box flexDirection="row">
-                  <Heading color="#525252" fontSize={24} fontWeight="$semibold">ExampleName</Heading>
-                  <Icon w={24} h={24} mt={5} as={ChevronRightIcon} position="absolute" right={0} />
-                </Box>
-
-                <Box mt={10} flexDirection="row">
-                  <Text fontSize={12}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vehicula neque quam, vitae posuere tortor scelerisque ac. In hac habitasse platea dictumst.</Text>
-                </Box>
-
-                <Box mt={10} flexDirection="row" alignItems="center">
-                  <MapPinned size={18} color="#525252" />
-                  <Text ml={5} fontWeight="$medium" fontSize={12}> BaseDate - Direction Map</Text>
-                </Box>
-
-                <Box mt={10} flexDirection="row">
-                  <Text fontWeight="$bold" fontSize={16} color="#5C5C5C">MXN $2000</Text>
-                  <Text ml={6} top={2} fontSize={14}>promedio por noche</Text>
-                </Box>
-              </TouchableOpacity>
-            </Box>
-          </Box> */}
-
-
-
-          {/* <Box my={16} mx={16} mt={0} h={450} borderRadius={30}>
-            <Image w="100%" h={335} borderRadius={30} source={require("../../assets/Cabañabonita.jpg")} />
-
-            <Box h={45} w={45} alignItems="center" justifyContent="center" opacity="$90" position='absolute' borderRadius={999} bgColor="white" right={16} top={16}>
-              <Heart color="#222222" size={24} />
-            </Box>
-
-            <Box w="100%" bottom={0} position="absolute" borderRadius={30} backgroundColor="white"
-              style={{ shadowColor: "black", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 8 }}>
-              
-              <TouchableOpacity style={{padding:16}} onPress={handlePublication}>
-                <Box flexDirection="row">
-                  <Heading color="#525252" fontSize={24} fontWeight="$semibold">ExampleName</Heading>
-                  <Icon w={24} h={24} mt={5} as={ChevronRightIcon} position="absolute" right={0} />
-                </Box>
-
-                <Box mt={10} flexDirection="row">
-                  <Text fontSize={12}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vehicula neque quam, vitae posuere tortor scelerisque ac. In hac habitasse platea dictumst.</Text>
-                </Box>
-
-                <Box mt={10} flexDirection="row" alignItems="center">
-                  <MapPinned size={18} color="#525252" />
-                  <Text ml={5} fontWeight="$medium" fontSize={12}> BaseDate - Direction Map</Text>
-                </Box>
-
-                <Box mt={10} flexDirection="row">
-                  <Text fontWeight="$bold" fontSize={16} color="#5C5C5C">MXN $2000</Text>
-                  <Text ml={6} top={2} fontSize={14}>promedio por noche</Text>
-                </Box>
-              </TouchableOpacity>
-            </Box>
-          </Box> */}
-
-          {/* <Box my={16} mx={16} mt={0} h={450} borderRadius={30}>
-            <Image w="100%" h={335} borderRadius={30} source={require("../../assets/Cabañabonita.jpg")} />
-
-            <Box h={45} w={45} alignItems="center" justifyContent="center" opacity="$90" position='absolute' borderRadius={999} bgColor="white" right={16} top={16}>
-              <Heart color="#222222" size={24} />
-            </Box>
-
-            <Box w="100%" bottom={0} position="absolute" borderRadius={30} backgroundColor="white"
-              style={{ shadowColor: "black", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 8 }}>
-              
-              <TouchableOpacity style={{padding:16}} onPress={handlePublication}>
-                <Box flexDirection="row">
-                  <Heading color="#525252" fontSize={24} fontWeight="$semibold">ExampleName</Heading>
-                  <Icon w={24} h={24} mt={5} as={ChevronRightIcon} position="absolute" right={0} />
-                </Box>
-
-                <Box mt={10} flexDirection="row">
-                  <Text fontSize={12}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vehicula neque quam, vitae posuere tortor scelerisque ac. In hac habitasse platea dictumst.</Text>
-                </Box>
-
-                <Box mt={10} flexDirection="row" alignItems="center">
-                  <MapPinned size={18} color="#525252" />
-                  <Text ml={5} fontWeight="$medium" fontSize={12}> BaseDate - Direction Map</Text>
-                </Box>
-
-                <Box mt={10} flexDirection="row">
-                  <Text fontWeight="$bold" fontSize={16} color="#5C5C5C">MXN $2000</Text>
-                  <Text ml={6} top={2} fontSize={14}>promedio por noche</Text>
-                </Box>
-              </TouchableOpacity>
-            </Box>
-          </Box> */}
-
-          <Button
+          {/* <Button
             w={"$72"}
             flexDirection="row"
             alignItems="center"
@@ -224,7 +119,8 @@ const Explore = (props) => {
             onPress={handleAddPlacePress}
           >
             <Text>Add place</Text>
-          </Button>
+          </Button> */}
+
         </Animated.ScrollView>
       </SafeAreaView>
     </VStack>

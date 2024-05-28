@@ -16,6 +16,8 @@ import Toast from "react-native-toast-message";
 import { EyeIcon, EyeOffIcon, CircleUserRound, Mail, Phone, UserRound } from "lucide-react-native";
 import { TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import {doc,onSnapshot,collection,query,where,orderBy,getDoc,setDoc,updateDoc,deleteDoc,getDocs,} from "firebase/firestore";
+import { db } from "../../utils";
 
 const Register2 = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -39,12 +41,17 @@ const Register2 = () => {
           auth,
           formValue.email,
           formValue.password
-        ).then((userFirebase) => {
-          return userFirebase;
+        ).then(async (userCredential) => {
+          const user = userCredential.user;
+          // Intenta crear un nuevo documento en Firestore
+          await setDoc(doc(db, 'users', user.uid), {
+            isAdmin: formValue.isAdmin
+          });
+          return user;
         });
 
         console.log(infoUser);
-
+        
         navigation.navigate(screen.account.login);
       } catch (error) {
         Toast.show({
@@ -85,7 +92,7 @@ const Register2 = () => {
         <Box flex={1} position="relative" justifyContent="center" bgColor="rgba(0,0,0,0.25)">
           {/* LogoText */}
           <Box alignItems="center" top={96} right={0} left={0} position="absolute">
-            <Image w={90} h={90} source={require("../../../assets/LogCabin.png")} />
+            <Image w={90} h={90} source={require("../../../assets/LogCabin.png")} alt="logoApp" />
             <Text fontSize={64} style={{ fontFamily: "Shalimar-Regular" }} color="white">Cabapp</Text>
           </Box>
 
