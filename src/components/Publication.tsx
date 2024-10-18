@@ -20,7 +20,7 @@ import {
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import { db } from "../utils";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Circle } from "react-native-maps";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import Carousel from "pinar";
 import { StyleSheet, TouchableOpacity } from "react-native";
@@ -41,6 +41,7 @@ import { Linking } from 'react-native';
 import BtnFavorite from "./BtnFavorite";
 import BtnReservation from "./BtnReservation";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 
 const styles = StyleSheet.create({
   slide1: {
@@ -238,9 +239,8 @@ const Publication = (props) => {
 
         </Box>
 
-          
-
-          {/* Location/Map */}
+        
+          {/* Location/Map Form */}
           <Box mx={16} my={16} marginTop={0}>
             <Text color="#000000" fontSize={18} fontWeight="$semibold">
               Location
@@ -248,48 +248,54 @@ const Publication = (props) => {
             <Box marginTop={10}>
               <MapView
                 onPress={openAppMap}
-                style={{ width: "100%", height: 200, borderRadius: 20 }}
+                style={{ width: "100%", height: 500, borderRadius: 20 }}
                 initialRegion={{
                   latitude: publication.location.latitude,
                   longitude: publication.location.longitude,
                   latitudeDelta: publication.location.latitudeDelta,
                   longitudeDelta: publication.location.longitudeDelta,
                 }}
-              >
+              > 
                 <Marker
                   coordinate={{
                     latitude: publication.location.latitude,
                     longitude: publication.location.longitude,
                   }}
                 />
+                <Circle
+                center={{
+                  latitude: publication.location.latitude,
+                  longitude: publication.location.longitude,
+                }}
+                radius={600}
+                strokeWidth={2}
+                strokeColor="red"
+                fillColor="red"
+                />
+                <Circle
+                center={{
+                  latitude: publication.location.latitude,
+                  longitude: publication.location.longitude,
+                }}
+                radius={1000}
+                strokeWidth={2}
+                strokeColor="orange"
+                fillColor="orange"
+                />
               </MapView>
             </Box>
           </Box>
 
-          <Box mx={16} my={16} marginTop={0} alignItems="center"> 
-          <BtnReservation idPlace={publication.id}></BtnReservation>
-          </Box>
-          
 
           {/* Opinions average */}
           <Box mx={16} my={16} marginTop={0}>
-            <Text color="#333333" fontSize={18} fontWeight="$semibold">
-              Opinions
-            </Text>
+            
             <Box
               marginTop={5}
               alignItems="flex-start"
               justifyContent="space-between"
             >
-              <Text fontWeight="$bold" color="#EBC351" size="2xl">
-                {publication.ratingMedia}
-              </Text>
 
-              <Rating
-                imageSize={20}
-                readonly
-                startingValue={publication.ratingMedia | 0}
-              ></Rating>
             </Box>
 
             {/* ReviewPlace */}
@@ -392,7 +398,6 @@ const Publication = (props) => {
               );
             })}
           </Box>
-        </Box>
       </KeyboardAwareScrollView>
     </VStack>
   );

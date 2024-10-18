@@ -31,7 +31,8 @@ export default function App() {
     <>
       <NavigationContainer>
         <GluestackUIProvider config={config}>
-          {user ? <NavBar/> : <AccountStack />}
+          {/* {user ? <NavBar/> : <AccountStack />} */}
+          <NavBar/>
         </GluestackUIProvider>
       </NavigationContainer>
 
